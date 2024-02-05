@@ -27,18 +27,6 @@ const addContact = async (data) => {
 }
 
 
-
-const updateById = async (id, data) => {
-    const contacts = await listContacts();
-    const index = contacts.findIndex(contact => contact.id === id);
-    if (index === -1) {
-        return null
-    }
-    contacts[index] = { id, ...data };
-    await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
-    return contacts[index]
-}
-
 const removeContact = async (id) => {
     const contacts = await listContacts();
     const index = contacts.findIndex(contact => contact.id === id);
@@ -48,6 +36,18 @@ const removeContact = async (id) => {
     const [result] = contacts.splice(index, 1);
     await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
     return result;
+}
+
+//немає ьв ДЗ, додатково для тренування
+const updateById = async (id, data) => {
+    const contacts = await listContacts();
+    const index = contacts.findIndex(contact => contact.id === id);
+    if (index === -1) {
+        return null
+    }
+    contacts[index] = { id, ...data };
+    await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+    return contacts[index]
 }
 
 module.exports = {
